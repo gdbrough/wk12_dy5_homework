@@ -64,9 +64,17 @@ const displayCharacter = function(event){
         if (characters[this.value].wand.wood === ""){
           wand.innerText = "Wand: None"
         } else {
-          wand.innerText = "Wand: " + characters[this.value].wand.length +
-            " inch " + characters[this.value].wand.wood +
-            " with " + characters[this.value].wand.core + " core";
+          wandText = "";
+          if (characters[this.value].wand.length !== ""){
+            wandText += characters[this.value].wand.length + " inch ";
+          }
+          if (characters[this.value].wand.wood !== ""){
+            wandText += characters[this.value].wand.wood;
+          }
+          if (characters[this.value].wand.core !== ""){
+            wandText += " with " + characters[this.value].wand.core + " core";
+          }
+          wand.innerText = "Wand: " + capitalise(wandText);
         };
         ul.appendChild(wand);
       } else {
@@ -90,11 +98,11 @@ const displayCharacter = function(event){
 function capitalise(str) {
 return str
     .toLowerCase()
-    .split(' ')
+    .split(" ")
     .map(function(word) {
         return word[0].toUpperCase() + word.substr(1);
     })
-    .join(' ');
+    .join(" ");
  }
 
 const app = function(){
@@ -105,7 +113,7 @@ const app = function(){
 
 
 // Load the Visualization API and the corechart package.
-google.charts.load('current', {'packages':['corechart']});
+google.charts.load("current", {"packages":["corechart"]});
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawChart);
@@ -114,7 +122,6 @@ google.charts.setOnLoadCallback(drawChart);
 // instantiates the pie chart, passes in the data and
 // draws it.
 function drawChart() {
-  console.log("characters: ", this.characters);
   let staff = 0;
   let student = 0;
   let neither = 0
@@ -127,50 +134,25 @@ function drawChart() {
       neither += 1
     };
   }
-  console.log("staff", staff, "student", student, "neither", neither);
 
-  // function foo(arr) {
-  //     var a = [], b = [], prev;
-  //
-  //     arr.sort();
-  //     for ( var i = 0; i < arr.length; i++ ) {
-  //         if ( arr[i] !== prev ) {
-  //             a.push(arr[i]);
-  //             b.push(1);
-  //         } else {
-  //             b[b.length-1]++;
-  //         }
-  //         prev = arr[i];
-  //     }
-  //
-  //     return [a, b];
-  // }
-
-
-
-// Create the data table.
+  // Create the data table.
   var data = new google.visualization.DataTable();
-  data.addColumn('string', 'Topping');
-  data.addColumn('number', 'Slices');
+  data.addColumn("string", "hogwartsee");
+  data.addColumn("number", "total");
   data.addRows([
-    ['Students', student],
-    ['Staff', staff],
-    ['Neither', neither]
+    ["Students", student],
+    ["Staff", staff],
+    ["Neither", neither]
   ]);
 
 // Set chart options
-  var options = {'title':"Who's at Hogwarts",
-                 'width':400,
-                 'height':300};
+  var options = {"title":"Who's at Hogwarts",
+                 "width":400,
+                 "height":300};
 
 // Instantiate and draw our chart, passing in some options.
-  var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+  var chart = new google.visualization.PieChart(document.getElementById("chart_div"));
   chart.draw(data, options);
 }
 
-
-
-
-
-
-window.addEventListener('load', app);
+window.addEventListener("load", app);
