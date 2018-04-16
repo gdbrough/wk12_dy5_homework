@@ -1,0 +1,22 @@
+body {
+  background-color: lightgoldenrodyellow;
+}
+
+#character-display {
+  padding-top: 15px;
+}
+
+#portrait {
+  width: 200px;
+}
+
+ul {
+  list-style-type: none;
+  width: 300px;
+  align-content: center;
+  text-align: center;
+}
+
+#chart_div {
+  background-color: lightgoldenrodyellow;
+}
